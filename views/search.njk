@@ -1,0 +1,25 @@
+{% extends "layout.njk" %}
+{% block content %}
+<main class="container">
+     <h1>{{ title }}</h1>
+  <form action="/search" method="get">
+    <input type="text" name="q" placeholder="Search..." />
+    <button type="submit">Search</button>
+  </form>
+
+  {% if query %}
+  <p>Search results for <strong>{{ query }}</strong></p>
+  {% endif %}
+  {% if results %}
+  <ul>
+    {% for result in results %}
+    <li>
+     <a href="{{ result.url }}">{{ result.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No results found</p>
+  {% endif %}
+</main>
+{% endblock %}
