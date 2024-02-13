@@ -1,8 +1,17 @@
 {% extends "layout.njk" %}
 {% include 'components/nav.njk' %}
-<div class="card">
-    <h1>{{ player.name }}</h1>
-    <p>booomshakalaka</p>
-  </div>
 {% block content %}
+<main class="container">
+<div class="card">
+  <h1>{{player.name}}</h1>
+  <p>Matches played: {{player.matches_played}}</p>
+  <p>Wins: {{player.wins}}</p> 
+  <p>Kills: {{player.kills}}</p>
+  <p>Deaths: {{player.deaths}}</p>
+  <p>K/D : {{player.kills / player.deaths }}</p>
+  <p>Winrate: {{(player.wins / player.matches_played)*100}} %</p>
+  <button class="circle" onclick="history.back()">Go Back</button>
+</div>
+</main>
+
 {% endblock %}

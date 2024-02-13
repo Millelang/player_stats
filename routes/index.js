@@ -9,28 +9,28 @@ router.get('/', function (req, res) {
 })
 
 
-router.get('/search', function (req, res) {
-  console.log(req.query.q)
+router.get('/stats', async function (req, res) {
 
-  let query = req.query.q
-  query = query.replace(/[^a-zA-Z0-9]/g, '')
-
-
-  try {
-    const id = req.params.id
-    const [player] = await.pool.promise().query('SELECT * FROM milton_player JOIN milton_stats ON milton_stats.player_id = milton_player.id WHERE milton_player.name LIKE "%query%";')
-    res.render('stats.njk', {
-      name: player.name
-    })
-
+  
+  let query = req.query.searchQueryInput
+  if (query) {
+    query = query.replace(/[^a-zA-Z0-9]/g, '')
+    try {
+      const [player] = await pool.promise().query(`
+      SELECT * FROM milton_player 
+      JOIN milton_stats 
+      ON milton_stats.player_id = milton_player.id WHERE milton_player.name LIKE "%${query}%"
+      LIMIT 1`)
+     res.render('stats.njk', { player: player[0], title: 'Stats' })
+      console.log(player)
+    }
+    catch (error) {
+      console.log(error)
+      res.sendStatus(500)
+    }
+  } else {
+    res.send('No query provided')
   }
-  catch (error) {
-    console.log(error)
-    res.sendStatus(500)
-  }
-
-
-
 });
 
 module.exports = router

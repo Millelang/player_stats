@@ -97,3 +97,14 @@ body {
     padding-bottom: 60%;
     padding-left: 2rem;
   }
+
+  .circle {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
