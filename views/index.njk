@@ -6,9 +6,9 @@
 
 
   <div class="wrapper">
-    <form action="/stats" method="get"> <input id="searchQueryInput" type="text" name="searchQueryInput"
+  
+    <form class="searchBar" action="/stats" method="get"> <input id="searchQueryInput" type="text" name="searchQueryInput"
         placeholder="Search" value="" />
-      <div class="searchBar">
         <button id="searchQuerySubmit" type="submit" >
           <svg style="width:24px;height:24px" viewBox="0 0 24 24">
             <path fill="#666666"
@@ -16,7 +16,6 @@
         </button>
         </svg>
     </form>
-  </div>
   </div>
   {% if query %}
   <p>Search results for <strong>{{ query }}</strong></p>
