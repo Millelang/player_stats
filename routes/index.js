@@ -55,4 +55,15 @@ router.get('/stats', async function (req, res) {
   }
 });
 
+
+router.get('/statsform.njk'), function (req ,res) {
+  const stats = req.body
+  // plocka ut de värden vi ska ha
+  const matches_played = req.body.matches_played
+  const wins = req.body.wins
+  const kills = req.body.kills
+  const deaths = req.body.deaths
+}
+
+
 module.exports = router

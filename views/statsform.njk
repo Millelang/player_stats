@@ -1,0 +1,26 @@
+{% extends "layout.njk" %}
+{% include 'components/nav.njk' %}
+{% block content %}
+
+   <form action="./index.njk" method="post">
+    <div class="form-element">
+      <label for="matches_played">:</label>
+      <input type="number" name="matches_played" id="matches_played">
+    </div>
+    <div class="form-element">
+      <label for="wins">Wins:</label>
+      <input type="number" name="wins" id="wins">
+    </div>
+    <div class="form-element">
+      <label for="kills">Kills:</label>
+      <input type="number" name="kills" id="kills">
+    </div>  
+    <div class="form-element">
+      <label for="deaths">Deaths:</label>
+      <input type="number" name="deaths" id="deaths">
+    </div>
+    <div class="form-element">
+      <input type="submit" value="Submit player">
+    </div>
+</form>
+{% endblock %}
