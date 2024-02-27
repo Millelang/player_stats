@@ -6,3 +6,4 @@ Ska göra en databas för dortnite stats som innehåller en relation mellan spel
 Gjorde en databas som innehåller en relation mellan spelare och deras stats. Detta gjordes med hjälp av en databas som är skapad i MySQL.
 
 Gjorde landing pagen för projektet.
+
