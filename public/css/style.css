@@ -87,6 +87,16 @@ body {
   }
   
 
+.playerlink {
+  color: #f5f5f5;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: block;
+  transition: color 0.3s;
+}
+
   .card {
     width: 100%;
     background: #222529;

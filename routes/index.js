@@ -68,5 +68,27 @@ router.get('/statsform.njk'), function (req ,res) {
  
 }
 
+router.get('/stats/:id/delete', async function (req, res) {
+  try {
+    const [result] = await pool.promise().query(
+      `DELETE FROM milton_player WHERE id = ?`,
+      [req.params.id]
+    )
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500)
+  }
+  try {
+    const [result2] = await pool.promise().query(
+      `DELETE FROM milton_stats WHERE player_id = ?`,
+      [req.params.id]
+    )
+    res.redirect('/')
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500)
+  }
+})
+
 
 module.exports = router

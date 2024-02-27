@@ -24,6 +24,8 @@
   <p>K/D : {{player.kills / player.deaths }}</p>
   <p>Winrate: {{(player.wins / player.matches_played)*100}} %</p>
 </div>
+      <a href="/stats/{{ player.id }}/delete">Delete</a>
 </main>
+  
 
 {% endblock %}
