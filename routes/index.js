@@ -1,7 +1,7 @@
 
 const express = require('express')
 const router = express.Router()
-
+const { body ,matchedData , validationResult } = require('express-validator')
 const pool = require('../db.js')
 
 router.get('/', function (req, res) {
@@ -14,30 +14,33 @@ router.get('/newplayer', function (req, res) {
 })
 
 
-router.post('/newplayer', async function (req, res) {
-  const stats = req.body
+router.post('/newplayer',
+  [
+    body('name').notEmpty().trim().escape(),
+    body('matches_played').isInt({ min: 0 }).trim().escape(),
+    body('wins').isInt({ min: 0 }).notEmpty().trim().escape(),
+    body('kills').isInt({ min: 0 }).notEmpty().trim().escape(),
+    body('deaths').isInt({ min: 0 }).notEmpty().trim().escape(),
+  ],
+  async function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-  try {
-    const [player] = await pool.promise().query('INSERT INTO milton_player (name) VALUES (?);', [stats.name])
-    const [playerStats] = await pool.promise().query('INSERT INTO milton_stats (player_id, matches_played, wins, kills, deaths) VALUES (?, ?, ?, ?, ?);', [player.insertId, stats.matches_played, stats.wins, stats.kills, stats.deaths])
-    res.render('newplayer.njk', { title: 'Post' })
+    const stats = matchedData(req);
+
+    try {
+      const [player] = await pool.promise().query('INSERT INTO milton_player (name) VALUES (?);', [stats.name])
+      const [playerStats] = await pool.promise().query('INSERT INTO milton_stats (player_id, matches_played, wins, kills, deaths) VALUES (?, ?, ?, ?, ?);', [player.insertId, stats.matches_played, stats.wins, stats.kills, stats.deaths])
+      res.render('newplayer.njk', { title: 'Post' })
+    }
+    catch (error) {
+      console.log(error)
+      res.sendStatus(500)
+    }
   }
-  catch (error) {
-    console.log(error)
-    res.sendStatus(500)
-  }
-})
-router.get('/list', async function (req, res) {
-  try { 
-    const [players] = await pool.promise().query('SELECT * FROM milton_player')
-    res.render('list.njk', { players: players, title: 'Players' })
-    
-  }
-  catch(error) {
-    console.log(error)
-    res.sendStatus(500)
-  }
-})
+)
 router.get('/stats', async function (req, res) {
 
   
